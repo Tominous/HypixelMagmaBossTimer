@@ -112,7 +112,7 @@ $(document).ready(function () {
                 if (now - estimateData.latest.blaze < twentyMinsInMillis) {
                     $("#waveBlazeTime").text("(" + moment(estimateData.latest.blaze).fromNow() + ")");
                     $("#waveBlazeBtn").attr("data-tooltip", estimateData.latestConfirmations.blaze + " Confirmations");
-                    // $("#waveBlazeBtn").attr("disabled", true);
+                     $("#waveBlazeBtn").attr("disabled", true);
                 } else {
                     $("#waveBlazeTime").text("");
                     $("#waveBlazeBtn").attr("data-tooltip", "Not Confirmed");
@@ -128,7 +128,7 @@ $(document).ready(function () {
                 if (now - estimateData.latest.magma < tenMinsInMillis) {
                     $("#waveMagmaTime").text("(" + moment(estimateData.latest.magma).fromNow() + ")");
                     $("#waveMagmaBtn").attr("data-tooltip", estimateData.latestConfirmations.magma + " Confirmations");
-                    // $("#waveMagmaBtn").attr("disabled", true);
+                     $("#waveMagmaBtn").attr("disabled", true);
                 } else {
                     $("#waveMagmaTime").text("");
                     $("#waveMagmaBtn").attr("data-tooltip", "Not Confirmed")
@@ -144,7 +144,7 @@ $(document).ready(function () {
                 if (now - estimateData.latest.music < fiveMinsInMillis) {
                     $("#musicTime").text("(" + moment(estimateData.latest.music).fromNow() + ")");
                     $("#musicBtn").attr("data-tooltip", estimateData.latestConfirmations.music + " Confirmations");
-                    // $("#musicBtn").attr("disabled", true);
+                     $("#musicBtn").attr("disabled", true);
                 } else {
                     $("#musicTime").text("");
                     $("#musicBtn").attr("data-tooltip", "Not Confirmed");
@@ -158,7 +158,7 @@ $(document).ready(function () {
                 if (now - estimateData.latest.spawn < fiveMinsInMillis) {
                     $("#spawnTime").text("(" + moment(estimateData.latest.spawn).fromNow() + ")");
                     $("#spawnedBtn").attr("data-tooltip", estimateData.latestConfirmations.spawn + " Confirmations");
-                    // $("#musicBtn").attr("disabled", true);
+                     $("#musicBtn").attr("disabled", true);
                 } else {
                     $("#spawnTime").text("");
                     $("#spawnedBtn").attr("data-tooltip", "Not Confirmed")
@@ -172,7 +172,7 @@ $(document).ready(function () {
                 if (now - estimateData.latest.death < fiveMinsInMillis) {
                     $("#deathTime").text("(" + moment(estimateData.latest.death).fromNow() + ")");
                     $("#deathBtn").attr("data-tooltip", estimateData.latestConfirmations.death + " Confirmations");
-                    // $("#musicBtn").attr("disabled", true);
+                     $("#musicBtn").attr("disabled", true);
                 } else {
                     $("#deathTime").text("");
                     $("#deathBtn").attr("data-tooltip", "Not Confirmed")
@@ -230,9 +230,9 @@ $(document).ready(function () {
             timerId = setInterval(updateTimer, 1000);// tick every second
         });
 
-        // $.ajax("https://hypixel-api.inventivetalent.org/api/skyblock/bosstimer/magma/activeUsers").done(function (data) {
-        //     $("#activeUserCount").text(data.activeUsers);
-        // })
+         $.ajax("https://hypixel-api.inventivetalent.org/api/skyblock/bosstimer/magma/activeUsers").done(function (data) {
+             $("#activeUserCount").text(data.activeUsers);
+         })
     }
 
     refreshEstimate();
@@ -278,29 +278,29 @@ $(document).ready(function () {
     function doEventPost($this, event, eventDescription, skipEstimateRefresh) {
         showConfirmationModal(event);
         $this.attr("disabled", true);
-        // let username = $("#mcUsername").val();
-        // confirmAndCaptchaAdd(eventDescription, function (b) {
-        //     if (b) {
-        //         $this.attr("disabled", true);
-        //         $.ajax({
-        //             method: "POST",
-        //             url: "https://hypixel-api.inventivetalent.org/api/skyblock/bosstimer/magma/addEvent",
-        //             data: {
-        //                 type: event,
-        //                 captcha: reCaptchaToken,
-        //                 username: username,
-        //                 ipv4: ipv4,
-        //                 ipv6: ipv6
-        //             }
-        //         }).done(function () {
-        //             // $this.css("display", "none");
-        //             $this.attr("disabled", true);
-        //
-        //             if (!skipEstimateRefresh)
-        //                 refreshEstimate();
-        //         })
-        //     }
-        // })
+         let username = $("#mcUsername").val();
+         confirmAndCaptchaAdd(eventDescription, function (b) {
+             if (b) {
+                 $this.attr("disabled", true);
+                 $.ajax({
+                     method: "POST",
+                     url: "https://hypixel-api.inventivetalent.org/api/skyblock/bosstimer/magma/addEvent",
+                     data: {
+                         type: event,
+                         captcha: reCaptchaToken,
+                         username: username,
+                         ipv4: ipv4,
+                         ipv6: ipv6
+                     }
+                 }).done(function () {
+                      $this.css("display", "none");
+                     $this.attr("disabled", true);
+        
+                     if (!skipEstimateRefresh)
+                         refreshEstimate();
+                 })
+             }
+         })
     }
 
     function showConfirmationModal(event) {
@@ -368,17 +368,17 @@ $(document).ready(function () {
         console.log("OnePush Site Notification Permission:", permission);
         onePushNotificationsGranted = permission === "granted";
     }]);
-    // $("#pushNotificationSwitch").change(function () {
-    //     let checked = $(this).is(":checked");
-    //     if (checked) {
-    //         OneSignal.push(function () {
-    //             OneSignal.showNativePrompt();
-    //             localStorage.setItem("pushNotifications", "true");
-    //         });
-    //     } else {
-    //         localStorage.setItem("pushNotifications", "false");
-    //     }
-    // });
+     $("#pushNotificationSwitch").change(function () {
+         let checked = $(this).is(":checked");
+         if (checked) {
+             OneSignal.push(function () {
+                 OneSignal.showNativePrompt();
+                 localStorage.setItem("pushNotifications", "true");
+             });
+         } else {
+             localStorage.setItem("pushNotifications", "false");
+         }
+     });
     OneSignal.push(function () {
         // Occurs when the user's subscription changes to a new value.
         OneSignal.on('subscriptionChange', function (isSubscribed) {
@@ -436,7 +436,7 @@ $(document).ready(function () {
                 },
                 tooltip: {
                     style: {
-                        //width: 300
+                        width: 300
                     },
                     formatter: function () {
                         let date = Highcharts.dateFormat("%y-%m-%d", this.x);
@@ -453,8 +453,8 @@ $(document).ready(function () {
                 series: [{
                     dataLabels: {
                         allowOverlap: false,
-                        /* format: '<span style="color:{point.color}">● </span><span style="font-weight: bold;" > ' +
-                             '{point.x:%d %b %Y}</span><br/>{point.name}'*/
+                         format: '<span style="color:{point.color}">● </span><span style="font-weight: bold;" > ' +
+                             '{point.x:%d %b %Y}</span><br/>{point.name}'
                     },
                     marker: {
                         symbol: 'circle'
